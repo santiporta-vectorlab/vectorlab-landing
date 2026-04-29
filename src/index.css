@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@keyframes fade-out-in {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-fade-out-in {
+  animation: fade-out-in 3s ease-in-out infinite;
+}
