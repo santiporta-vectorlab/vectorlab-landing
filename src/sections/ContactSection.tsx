@@ -11,10 +11,35 @@ const ContactSection: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Lógica de envío de formulario (ej. API call)
-    console.log('Formulario enviado:', formData);
+    setStatus('submitting');
+    
+    // Formspree Endpoint
+    // TODO: Reemplazar esta URL con tu link de Formspree (ej: https://formspree.io/f/mvoqeodb)
+    const formspreeUrl = 'https://formspree.io/f/REEMPLAZAR_CON_TU_ID';
+    
+    try {
+      if (formspreeUrl.includes('REEMPLAZAR')) {
+        alert('Simulación completa. (Para enviar correos reales, creá una cuenta gratis en formspree.io y poné tu URL acá)');
+        setStatus('success');
+      } else {
+        await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...formData, source: 'Contact Form' })
+        });
+        setStatus('success');
+        setFormData({ nombre: '', empresa: '', objetivo: '' });
+      }
+    } catch (error) {
+      alert('Hubo un error al enviar el mensaje.');
+      setStatus('idle');
+    }
+    
+    setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
@@ -110,11 +135,14 @@ const ContactSection: React.FC = () => {
               {/* Botón Submit */}
               <button
                 type="submit"
-                className="w-full bg-white text-black font-medium py-4 px-6 hover:bg-emerald-400 transition-colors flex justify-between items-center group mt-4"
+                disabled={status === 'submitting' || status === 'success'}
+                className="w-full bg-white text-black font-medium py-4 px-6 hover:bg-emerald-400 transition-colors flex justify-between items-center group mt-4 disabled:bg-zinc-700 disabled:text-zinc-500"
               >
-                <span>Request Evaluation</span>
+                <span>
+                  {status === 'submitting' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Request Evaluation'}
+                </span>
                 <span className="font-mono text-xs opacity-50 group-hover:opacity-100 transition-opacity">
-                  {'>'} execute
+                  {status === 'success' ? '[OK]' : '> execute'}
                 </span>
               </button>
 

@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import HoverDecrypt from './components/HoverDecrypt';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import SecurityQuiz from './components/SecurityQuiz';
 
 const App: React.FC = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -64,6 +65,9 @@ const App: React.FC = () => {
 
           {/* Services Section */}
           <ServicesGrid />
+
+          {/* Security Quiz Section */}
+          <SecurityQuiz />
 
           {/* Quick Scan Section */}
           <QuickScan />

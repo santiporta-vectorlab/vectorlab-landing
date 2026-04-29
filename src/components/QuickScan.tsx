@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const QuickScan: React.FC = () => {
   const [url, setUrl] = useState('');
-  const [email, setEmail] = useState('');
   const [scanState, setScanState] = useState<'idle' | 'scanning' | 'complete'>('idle');
   const [logs, setLogs] = useState<string[]>([]);
 
@@ -35,15 +34,6 @@ const QuickScan: React.FC = () => {
         setTimeout(() => setScanState('complete'), 1000);
       }
     }, 1100);
-  };
-
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Report will be sent to ${email}`);
-    setScanState('idle');
-    setUrl('');
-    setEmail('');
-    setLogs([]);
   };
 
   return (
@@ -89,26 +79,23 @@ const QuickScan: React.FC = () => {
             </div>
 
             {scanState === 'complete' && (
-              <div className="animate-fade-in border-t border-zinc-900 pt-6">
+              <div className="animate-fade-in border-t border-zinc-900 pt-6 mt-6">
                 <div className="text-emerald-500 mb-2 font-bold">
                   [+] Scan complete. Robust environment detected.
                 </div>
-                <div className="text-zinc-400 mb-4 text-sm">
-                  We identified a few opportunities to further strengthen your infrastructure.
+                <div className="text-zinc-400 mb-4 text-sm leading-relaxed">
+                  We identified opportunities to further strengthen your infrastructure. Please review our services or contact our team for a comprehensive audit.
                 </div>
-                <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4">
-                  <input
-                    type="email"
-                    placeholder="Enter work email for recommendations"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="flex-1 bg-zinc-900 border border-zinc-800 text-zinc-200 px-4 py-2 focus:outline-none focus:border-emerald-500"
-                  />
-                  <button type="submit" className="bg-white text-black font-medium px-4 py-2 hover:bg-zinc-200 transition-colors">
-                    Get Report
-                  </button>
-                </form>
+                <button 
+                  onClick={() => {
+                    setScanState('idle');
+                    setUrl('');
+                    setLogs([]);
+                  }}
+                  className="bg-zinc-800 text-zinc-300 font-medium px-4 py-2 hover:bg-zinc-700 transition-colors text-xs"
+                >
+                  Restart Scan
+                </button>
               </div>
             )}
           </div>
