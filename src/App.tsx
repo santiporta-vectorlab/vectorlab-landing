@@ -13,8 +13,18 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
-      window.scrollTo(0, 0);
+      const hash = window.location.hash;
+      setCurrentHash(hash);
+      
+      if (hash === '#terms' || hash === '#privacy' || hash === '' || hash === '#') {
+        window.scrollTo(0, 0);
+      } else {
+        // Smooth scroll to the section
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);

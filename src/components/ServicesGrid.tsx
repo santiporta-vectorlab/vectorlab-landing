@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const services = [
   {
     title: 'GRC & Compliance',
-    description: 'Focus on audits and Vanta/Drata platforms.',
-    details: 'We streamline your path to SOC2, ISO 27001, and C4 CCSS compliance. Our team integrates directly with platforms like Vanta and Drata to automate evidence collection, continuous monitoring, and policy enforcement.'
+    description: 'Focus on SOC 2, ISO 27001, and CCSS C4 compliance.',
+    details: 'We streamline your path to SOC 2, ISO 27001, and C4 CCSS compliance. Our team integrates directly with platforms like Vanta and Drata to automate evidence collection, continuous monitoring, and policy enforcement.'
   },
   {
     title: 'Cloud Engineering',
